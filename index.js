@@ -48,7 +48,7 @@ require('./routes/task')(app) //Le paso la instancia del servidor al router
 
 
 
-const port = process.env.port || 4000
+const port = process.env.PORT || 4000
 app.listen(port,() => {
     console.log(`Server running on http://localhost:${port}`)
 })
