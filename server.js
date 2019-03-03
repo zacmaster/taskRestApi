@@ -3,7 +3,8 @@ const express = require('express')
 const app = express()
 const bodyParser = require("body-parser");
 
-const tasksRouter = require('./routes/tasks')
+
+//Routers
 
 const user = 'root'
 const pass = 'root1234'
@@ -14,24 +15,40 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header(
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
       "Access-Control-Allow-Headers",
       "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-    );
+      );
     if (req.method === "OPTIONS") {
       res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
       return res.status(200).json({});
     }
     next();
-});
+  });
+  
+  
+  mongoose.connect(url, { useNewUrlParser: true })
+  
 
-app.use('/tasks',tasksRouter)
+  
+require('./models/task') //Importo el modelo  
+require('./routes/task')(app) //Le paso la instancia del servidor al router
 
-mongoose.connect(url, { useNewUrlParser: true })
 
 
-const port = 4000
+
+
+
+
+
+
+
+
+
+
+
+const port = process.env.port || 4000
 app.listen(port,() => {
     console.log(`Server running on http://localhost:${port}`)
 })
