@@ -15,9 +15,9 @@ exports.createTask = (req,res) => {
 
 
 exports.readAllTasks = (req,res) => {
-    Task.find({},(err,task) => {
+    Task.find({},(err,tasks) => {
         if(err)res.send(err)
-        res.json(task.sort((a,b) => a._id < b._id))
+        res.json(tasks)
     })
 }
 
